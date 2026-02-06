@@ -45,8 +45,8 @@ all = [
 grimoire-mcp = "grimoire.mcp.server:main"
 
 [project.urls]
-Homepage = "https://github.com/grimoire-security/grimoire"
-Repository = "https://github.com/grimoire-security/grimoire"
+Homepage = "https://github.com/tannernicol/grimoire"
+Repository = "https://github.com/tannernicol/grimoire"
 
 [tool.setuptools.packages.find]
 include = ["grimoire*"]

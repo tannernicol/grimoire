@@ -55,12 +55,31 @@ git clone https://github.com/tannernicol/grimoire.git
 cd grimoire
 pip install -e .
 
-# Ingest sample data (OWASP Top 10)
-python examples/ingest_cves.py
+# Fetch and index real security data (NVD CVEs + CWE catalog + OWASP Top 10)
+python scripts/fetch_sources.py all
 
 # Search
 python examples/search_demo.py "SQL injection"
 python examples/search_demo.py "access control" --severity critical
+python examples/search_demo.py --status
+```
+
+### Auto-Fetch Security Data
+
+Grimoire fetches from reputable public sources — no manual downloads:
+
+```bash
+# Everything: NVD + CWE + OWASP
+python scripts/fetch_sources.py all
+
+# Recent CVEs from NIST NVD (last 90 days, critical only)
+python scripts/fetch_sources.py nvd --days 90 --severity CRITICAL
+
+# Full CWE catalog from MITRE
+python scripts/fetch_sources.py cwe
+
+# With embeddings for semantic search (requires Ollama)
+python scripts/fetch_sources.py all --embeddings
 ```
 
 ### Enable Semantic Search
@@ -69,7 +88,7 @@ Requires [Ollama](https://ollama.com) with `nomic-embed-text`:
 
 ```bash
 ollama pull nomic-embed-text
-python examples/ingest_cves.py --generate-embeddings
+python scripts/fetch_sources.py all --embeddings
 python examples/search_demo.py "authentication bypass" --mode hybrid
 ```
 
