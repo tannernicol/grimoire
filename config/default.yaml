@@ -1,0 +1,35 @@
+# Grimoire default configuration
+# Override by passing config_path to Grimoire() or setting GRIMOIRE_CONFIG env var.
+
+database:
+  # Path to the SQLite database file
+  path: grimoire.db
+
+ollama:
+  # Ollama API endpoint
+  url: http://localhost:11434
+  # Embedding model (768-dim vectors)
+  model: nomic-embed-text
+
+search:
+  # Default search mode: keyword, semantic, or hybrid
+  default_mode: hybrid
+  # Weight for semantic component in hybrid mode (0.0 - 1.0)
+  # Keyword weight is automatically 1.0 - semantic_weight
+  semantic_weight: 0.6
+  # Default max results
+  default_limit: 20
+  # Minimum cosine similarity for semantic search results
+  min_similarity: 0.3
+
+quality:
+  # Minimum evaluated test cases before quality gating activates
+  min_cases: 5
+  # Minimum positive (relevant) test cases
+  min_positive_cases: 1
+  # Minimum hit rate for positive test cases (0.0 - 1.0)
+  min_positive_hit_rate: 0.2
+  # Maximum acceptable hit rate for negative test cases
+  max_negative_hit_rate: 0.6
+  # Block searches when no quality evaluation exists
+  gate_on_missing_eval: false

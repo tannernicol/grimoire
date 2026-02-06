@@ -1,0 +1,146 @@
+[
+  {
+    "id": "A01:2021",
+    "title": "Broken Access Control",
+    "description": "Access control enforces policy such that users cannot act outside of their intended permissions. Failures typically lead to unauthorized information disclosure, modification, or destruction of all data or performing a business function outside the user's limits. Common vulnerabilities include violation of the principle of least privilege, bypassing access control checks by modifying the URL, internal application state, or HTML page, or using an API manipulation tool. Permitting viewing or editing someone else's account by providing its unique identifier (insecure direct object references). Accessing API with missing access controls for POST, PUT and DELETE. Elevation of privilege, acting as a user without being logged in or acting as an admin when logged in as a user.",
+    "severity": "critical",
+    "categories": ["access-control", "authorization", "IDOR"],
+    "mitigations": [
+      "Deny access by default except for public resources",
+      "Implement access control mechanisms once and reuse throughout the application",
+      "Model access controls should enforce record ownership",
+      "Disable web server directory listing and ensure file metadata is not present in web roots",
+      "Log access control failures and alert admins when appropriate",
+      "Rate limit API and controller access to minimize harm from automated attack tooling"
+    ]
+  },
+  {
+    "id": "A02:2021",
+    "title": "Cryptographic Failures",
+    "description": "The first thing is to determine the protection needs of data in transit and at rest. Passwords, credit card numbers, health records, personal information, and business secrets require extra protection, mainly if that data falls under privacy laws or regulations. For all such data: Is any data transmitted in clear text? This concerns protocols such as HTTP, SMTP, FTP. Are any old or weak cryptographic algorithms or protocols used either by default or in older code? Are default crypto keys in use, weak crypto keys generated or re-used, or is proper key management or rotation missing? Is encryption not enforced? Are received server certificates and the trust chain properly validated?",
+    "severity": "high",
+    "categories": ["cryptography", "encryption", "data-protection"],
+    "mitigations": [
+      "Classify data processed, stored, or transmitted by an application",
+      "Identify which data is sensitive according to privacy laws and regulatory requirements",
+      "Do not store sensitive data unnecessarily, discard it as soon as possible",
+      "Ensure up-to-date and strong standard algorithms, protocols, and keys are in place",
+      "Encrypt all data in transit with secure protocols such as TLS",
+      "Disable caching for responses that contain sensitive data"
+    ]
+  },
+  {
+    "id": "A03:2021",
+    "title": "Injection",
+    "description": "An application is vulnerable to injection when user-supplied data is not validated, filtered, or sanitized by the application. Dynamic queries or non-parameterized calls without context-aware escaping are used directly in the interpreter. Hostile data is used within ORM search parameters to extract additional, sensitive records. Hostile data is directly used or concatenated so the SQL or command contains both structure and hostile data in dynamic queries, commands, or stored procedures. Common injections include SQL, NoSQL, OS command, LDAP, and Expression Language (EL) or Object Graph Navigation Library (OGNL) injection.",
+    "severity": "critical",
+    "categories": ["injection", "SQLi", "XSS", "command-injection"],
+    "mitigations": [
+      "Use a safe API which avoids the use of the interpreter entirely",
+      "Use positive server-side input validation",
+      "For residual dynamic queries, escape special characters using interpreter-specific escape syntax",
+      "Use LIMIT and other SQL controls within queries to prevent mass disclosure of records"
+    ]
+  },
+  {
+    "id": "A04:2021",
+    "title": "Insecure Design",
+    "description": "Insecure design is a broad category representing different weaknesses expressed as missing or ineffective control design. An insecure design cannot be fixed by a perfect implementation as by definition, needed security controls were never created to defend against specific attacks. Threat modeling, secure design patterns, and reference architectures are among the areas that should be used. Requirements and resource management: collect and negotiate the business requirements for an application with the business including protection requirements concerning confidentiality, integrity, authentication, and availability of all data assets.",
+    "severity": "high",
+    "categories": ["design", "architecture", "threat-modeling"],
+    "mitigations": [
+      "Establish and use a secure development lifecycle with AppSec professionals",
+      "Use threat modeling for critical authentication, access control, business logic, and key flows",
+      "Integrate security language and controls into user stories",
+      "Use a library of secure design patterns or paved road ready-to-use components",
+      "Write unit and integration tests to validate that all critical flows are resistant to the threat model"
+    ]
+  },
+  {
+    "id": "A05:2021",
+    "title": "Security Misconfiguration",
+    "description": "The application might be vulnerable if the application is missing appropriate security hardening across any part of the application stack or improperly configured permissions on cloud services. Unnecessary features are enabled or installed (e.g., ports, services, pages, accounts, privileges). Default accounts and their passwords are still enabled and unchanged. Error handling reveals stack traces or overly informative error messages to users. For upgraded systems, the latest security features are disabled or not configured securely. The software is out of date or vulnerable.",
+    "severity": "medium",
+    "categories": ["misconfiguration", "hardening", "defaults"],
+    "mitigations": [
+      "A repeatable hardening process makes it fast and easy to deploy another locked down environment",
+      "A minimal platform without any unnecessary features, components, documentation, or samples",
+      "A task to review and update the configurations appropriate to all security notes and patches",
+      "A segmented application architecture providing effective and secure separation",
+      "Sending security directives to clients such as Security Headers",
+      "An automated process to verify the effectiveness of configurations in all environments"
+    ]
+  },
+  {
+    "id": "A06:2021",
+    "title": "Vulnerable and Outdated Components",
+    "description": "You are likely vulnerable if you do not know the versions of all components you use (both client-side and server-side), including components you directly use as well as nested dependencies. If the software is vulnerable, unsupported, or out of date, including the OS, web/application server, DBMS, applications, APIs, and all components, runtime environments, and libraries. If you do not scan for vulnerabilities regularly and do not subscribe to security bulletins related to the components you use. If you do not fix or upgrade the underlying platform, frameworks, and dependencies in a risk-based, timely fashion.",
+    "severity": "medium",
+    "categories": ["dependencies", "supply-chain", "patching"],
+    "mitigations": [
+      "Remove unused dependencies, unnecessary features, components, files, and documentation",
+      "Continuously inventory the versions of both client-side and server-side components",
+      "Only obtain components from official sources over secure links",
+      "Monitor for libraries and components that are unmaintained or have known vulnerabilities",
+      "Ensure there is an ongoing plan for monitoring, triaging, and applying updates"
+    ]
+  },
+  {
+    "id": "A07:2021",
+    "title": "Identification and Authentication Failures",
+    "description": "Confirmation of the user's identity, authentication, and session management is critical to protect against authentication-related attacks. There may be authentication weaknesses if the application permits automated attacks such as credential stuffing, permits brute force or other automated attacks, permits default, weak, or well-known passwords, uses weak or ineffective credential recovery and forgot-password processes, uses plain text, encrypted, or weakly hashed password data stores, has missing or ineffective multi-factor authentication, exposes session identifier in the URL, reuses session identifier after successful login, does not correctly invalidate Session IDs.",
+    "severity": "high",
+    "categories": ["authentication", "session-management", "credentials"],
+    "mitigations": [
+      "Implement multi-factor authentication to prevent credential stuffing and brute force attacks",
+      "Do not ship or deploy with any default credentials, particularly for admin users",
+      "Implement weak password checks against a list of the top 10000 worst passwords",
+      "Ensure registration, credential recovery, and API pathways are hardened against account enumeration attacks",
+      "Limit or increasingly delay failed login attempts but be careful not to create a denial of service scenario",
+      "Use a server-side, secure, built-in session manager that generates a new random session ID with high entropy"
+    ]
+  },
+  {
+    "id": "A08:2021",
+    "title": "Software and Data Integrity Failures",
+    "description": "Software and data integrity failures relate to code and infrastructure that does not protect against integrity violations. An example is where an application relies upon plugins, libraries, or modules from untrusted sources, repositories, and CDNs. An insecure CI/CD pipeline can introduce the potential for unauthorized access, malicious code, or system compromise. Many applications now include auto-update functionality where updates are downloaded without sufficient integrity verification and applied to the previously trusted application. Attackers could potentially upload their own updates to be distributed and run on all installations. Another example is where objects or data are encoded or serialized into a structure that an attacker can see and modify (insecure deserialization).",
+    "severity": "high",
+    "categories": ["integrity", "supply-chain", "deserialization", "CI-CD"],
+    "mitigations": [
+      "Use digital signatures or similar mechanisms to verify the software or data is from the expected source",
+      "Ensure libraries and dependencies are consuming trusted repositories",
+      "Ensure there is a review process for code and configuration changes to minimize the chance that malicious code could be introduced",
+      "Ensure your CI/CD pipeline has proper segregation, configuration, and access control",
+      "Ensure unsigned or unencrypted serialized data is not sent to untrusted clients without integrity check"
+    ]
+  },
+  {
+    "id": "A09:2021",
+    "title": "Security Logging and Monitoring Failures",
+    "description": "This category helps detect, escalate, and respond to active breaches. Without logging and monitoring, breaches cannot be detected. Insufficient logging, detection, monitoring, and active response occurs any time auditable events are not logged, warnings and errors generate no, inadequate, or unclear log messages, logs of applications and APIs are not monitored for suspicious activity, logs are only stored locally, appropriate alerting thresholds and response escalation processes are not in place or effective, penetration testing and scans by DAST tools do not trigger alerts, the application cannot detect, escalate, or alert for active attacks in real-time or near real-time.",
+    "severity": "medium",
+    "categories": ["logging", "monitoring", "detection", "incident-response"],
+    "mitigations": [
+      "Ensure all login, access control, and server-side input validation failures can be logged",
+      "Ensure log data is encoded correctly to prevent injections or attacks on logging systems",
+      "Ensure high-value transactions have an audit trail with integrity controls to prevent tampering",
+      "Establish effective monitoring and alerting so suspicious activities are detected and responded to",
+      "Establish or adopt an incident response and recovery plan"
+    ]
+  },
+  {
+    "id": "A10:2021",
+    "title": "Server-Side Request Forgery (SSRF)",
+    "description": "SSRF flaws occur whenever a web application is fetching a remote resource without validating the user-supplied URL. It allows an attacker to coerce the application to send a crafted request to an unexpected destination, even when protected by a firewall, VPN, or another type of network access control list (ACL). As modern web applications provide end-users with convenient features, fetching a URL has become a common scenario. As a result, the incidence of SSRF is increasing. Also, the severity of SSRF is becoming higher due to cloud services and the complexity of architectures.",
+    "severity": "high",
+    "categories": ["SSRF", "request-forgery", "network"],
+    "mitigations": [
+      "Segment remote resource access functionality in separate networks to reduce the impact of SSRF",
+      "Enforce 'deny by default' firewall policies to block all but essential intranet traffic",
+      "Sanitize and validate all client-supplied input data",
+      "Enforce the URL schema, port, and destination with a positive allow list",
+      "Do not send raw responses to clients",
+      "Disable HTTP redirections"
+    ]
+  }
+]

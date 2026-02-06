@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "grimoire"
+version = "0.1.0"
+description = "Index any security corpus. Search with hybrid FTS5 + semantic retrieval. Expose via MCP for LLM-augmented analysis."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Grimoire Contributors"},
+]
+keywords = ["security", "RAG", "search", "embeddings", "MCP", "vulnerability"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+]
+dependencies = [
+    "numpy>=1.24",
+    "requests>=2.28",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+mcp = [
+    "mcp>=1.0",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+all = [
+    "grimoire[mcp,dev]",
+]
+
+[project.scripts]
+grimoire-mcp = "grimoire.mcp.server:main"
+
+[project.urls]
+Homepage = "https://github.com/grimoire-security/grimoire"
+Repository = "https://github.com/grimoire-security/grimoire"
+
+[tool.setuptools.packages.find]
+include = ["grimoire*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
