@@ -7,7 +7,6 @@
     <a href="https://github.com/tannernicol/grimoire">GitHub</a>
   </p>
 
-[![CI](https://github.com/tannernicol/grimoire/actions/workflows/ci.yml/badge.svg)](https://github.com/tannernicol/grimoire/actions)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 </div>
@@ -184,6 +183,11 @@ class MyIngestor(BaseIngestor):
 ## MCP Integration
 
 Grimoire ships an MCP server so LLM agents can search your knowledge base mid-conversation.
+
+> **Note:** The MCP server is an optional dependency. Install it with:
+> ```bash
+> pip install -e ".[mcp]"
+> ```
 
 ```bash
 # Start the server

@@ -20,11 +20,14 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import csv
+import io
 import json
 import logging
 import sys
 import time
 import xml.etree.ElementTree as ET
+import zipfile
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -40,7 +43,7 @@ logger = logging.getLogger(__name__)
 
 NVD_API_URL = "https://services.nvd.nist.gov/rest/json/cves/2.0"
 CWE_XML_URL = "https://cwe.mitre.org/data/xml/cwec_latest.xml.zip"
-CWE_CSV_URL = "https://cwe.mitre.org/data/csv/research-concepts.csv"
+CWE_CSV_URL = "https://cwe.mitre.org/data/csv/1000.csv.zip"
 
 
 def fetch_nvd(
@@ -105,37 +108,42 @@ def fetch_nvd(
 def fetch_cwe() -> list[dict]:
     """Fetch the CWE catalog and return as document dicts.
 
-    Uses the CWE research concepts CSV for a lightweight download.
+    Downloads the CWE research concepts CSV (zipped) from MITRE.
 
     Returns:
         List of document dicts ready for Grimoire ingestion.
     """
     print("  Downloading CWE catalog...")
     try:
-        resp = requests.get(CWE_CSV_URL, timeout=30)
+        resp = requests.get(CWE_CSV_URL, timeout=60)
         resp.raise_for_status()
     except requests.RequestException as exc:
         logger.error("CWE download error: %s", exc)
-        print(f"  Error: {exc}")
+        print(f"  Error downloading CWE data from {CWE_CSV_URL}: {exc}")
+        print("  The CWE CSV URL may have changed. Check https://cwe.mitre.org/data/downloads.html")
         return []
 
-    lines = resp.text.strip().split("\n")
-    if len(lines) < 2:
+    # Unzip the downloaded content
+    try:
+        with zipfile.ZipFile(io.BytesIO(resp.content)) as zf:
+            csv_names = [n for n in zf.namelist() if n.endswith(".csv")]
+            if not csv_names:
+                print("  Error: No CSV file found inside the downloaded zip.")
+                return []
+            csv_text = zf.read(csv_names[0]).decode("utf-8-sig")
+    except zipfile.BadZipFile:
+        logger.error("CWE download was not a valid zip file")
+        print("  Error: Downloaded file is not a valid zip. The CWE URL may have changed.")
+        print("  Check https://cwe.mitre.org/data/downloads.html for current URLs.")
         return []
 
-    # Parse CSV (first line is header)
-    header = lines[0].split(",")
+    reader = csv.DictReader(io.StringIO(csv_text))
     docs = []
 
-    for line in lines[1:]:
-        # Simple CSV parse (CWE CSV doesn't have complex quoting)
-        parts = line.split(",", len(header) - 1)
-        if len(parts) < 3:
-            continue
-
-        cwe_id = parts[0].strip().strip('"')
-        name = parts[1].strip().strip('"')
-        description = parts[2].strip().strip('"') if len(parts) > 2 else ""
+    for row in reader:
+        cwe_id = row.get("CWE-ID", "").strip()
+        name = row.get("Name", "").strip()
+        description = row.get("Description", "").strip()
 
         if not cwe_id or not name:
             continue
