@@ -14,6 +14,10 @@
 
 ---
 
+<p align="center">
+  <img src="docs/demo.png" alt="Grimoire demo" width="700" />
+</p>
+
 Grimoire is a hybrid search engine for security reference material — NIST frameworks, CWE catalogs, CVE feeds, audit findings, internal standards — backed by SQLite FTS5 and semantic embeddings. It exposes everything over [MCP](https://modelcontextprotocol.io/) so your LLM agent gets instant retrieval instead of a 50-page context dump.
 
 Keyword search for exact matches. Semantic search for "what's related." Both in one query.
