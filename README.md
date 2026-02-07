@@ -15,12 +15,18 @@
 ---
 
 <p align="center">
-  <img src="docs/demo.png" alt="Grimoire demo" width="700" />
+  <img src="docs/dashboard.svg" alt="Grimoire search dashboard" width="700" />
 </p>
 
-Grimoire is a hybrid search engine for security reference material — NIST frameworks, CWE catalogs, CVE feeds, audit findings, internal standards — backed by SQLite FTS5 and semantic embeddings. It exposes everything over [MCP](https://modelcontextprotocol.io/) so your LLM agent gets instant retrieval instead of a 50-page context dump.
+## The Problem
 
-Keyword search for exact matches. Semantic search for "what's related." Both in one query.
+Your LLM agent needs to reference CWE-89 during a code review. Without Grimoire, it either hallucinates the details, or you paste 50 pages of NIST docs into the context window and hope it finds the right paragraph. Every conversation. Every time.
+
+## The Solution
+
+Grimoire indexes security reference material once — CVEs, CWEs, OWASP, audit findings, your internal standards — into a single SQLite file with both FTS5 keyword search and semantic embeddings. Your LLM agent searches it mid-conversation via MCP. Exact matches when you need "CWE-89". Conceptual recall when you need "authentication bypass techniques". Both in one query.
+
+**One SQLite file. Zero cloud. Instant retrieval via MCP.**
 
 ```
                           +------------------+

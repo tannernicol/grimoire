@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620" role="img" aria-label="Grimoire Search Dashboard">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#010409"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="620" fill="url(#bg)"/>
+
+  <!-- Browser chrome -->
+  <rect x="24" y="16" width="912" height="588" rx="12" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <rect x="24" y="16" width="912" height="36" rx="12" fill="#1c2128"/>
+  <rect x="24" y="40" width="912" height="12" fill="#1c2128"/>
+  <circle cx="48" cy="34" r="6" fill="#f85149" opacity="0.8"/>
+  <circle cx="68" cy="34" r="6" fill="#d29922" opacity="0.8"/>
+  <circle cx="88" cy="34" r="6" fill="#3fb950" opacity="0.8"/>
+  <rect x="200" y="26" width="300" height="18" rx="4" fill="#0d1117"/>
+  <text x="220" y="39" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#8b949e">grimoire-mcp (MCP server)</text>
+
+  <!-- Header -->
+  <rect x="24" y="52" width="912" height="48" fill="#161b22"/>
+  <line x1="24" y1="100" x2="936" y2="100" stroke="#30363d" stroke-width="1"/>
+  <rect x="48" y="64" width="28" height="28" rx="6" fill="#a371f7" opacity="0.15"/>
+  <text x="55" y="84" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#a371f7">G</text>
+  <text x="86" y="78" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#e6edf3">Grimoire</text>
+  <text x="86" y="92" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">Security knowledge base &amp; hybrid search</text>
+  <rect x="800" y="68" width="116" height="24" rx="12" fill="#238636" opacity="0.9"/>
+  <text x="820" y="84" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Healthy</text>
+
+  <!-- Search bar -->
+  <rect x="40" y="116" width="896" height="50" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="60" y="146" font-family="system-ui, sans-serif" font-size="14" fill="#e6edf3">SQL injection authentication bypass</text>
+  <!-- Mode pills -->
+  <rect x="680" y="130" width="64" height="22" rx="11" fill="#1f6feb" opacity="0.15" stroke="#1f6feb" stroke-width="0.5"/>
+  <text x="694" y="145" font-family="system-ui, sans-serif" font-size="10" fill="#58a6ff">hybrid</text>
+  <rect x="752" y="130" width="64" height="22" rx="11" fill="#161b22" stroke="#30363d" stroke-width="0.5"/>
+  <text x="762" y="145" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">keyword</text>
+  <rect x="824" y="130" width="72" height="22" rx="11" fill="#161b22" stroke="#30363d" stroke-width="0.5"/>
+  <text x="834" y="145" font-family="system-ui, sans-serif" font-size="10" fill="#8b949e">semantic</text>
+
+  <!-- Results metadata -->
+  <text x="60" y="190" font-family="JetBrains Mono, monospace" font-size="10" fill="#8b949e">7 results  |  hybrid mode (40% keyword + 60% semantic)  |  12ms</text>
+
+  <!-- Result 1 -->
+  <rect x="40" y="204" width="540" height="92" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <rect x="56" y="216" width="52" height="18" rx="9" fill="#da3633" opacity="0.15"/>
+  <text x="64" y="229" font-family="system-ui, sans-serif" font-size="9" font-weight="600" fill="#f85149">critical</text>
+  <text x="116" y="229" font-family="system-ui, sans-serif" font-size="10" fill="#484f58">CVE-2024-21887</text>
+  <text x="56" y="250" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#e6edf3">Ivanti Connect Secure Auth Bypass</text>
+  <text x="56" y="268" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">Authentication bypass via SQL injection in web component allows</text>
+  <text x="56" y="282" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">unauthenticated attacker to access restricted resources...</text>
+  <rect x="490" y="216" width="70" height="18" rx="9" fill="#1f6feb" opacity="0.1"/>
+  <text x="500" y="229" font-family="JetBrains Mono, monospace" font-size="9" fill="#58a6ff">0.943</text>
+
+  <!-- Result 2 -->
+  <rect x="40" y="304" width="540" height="92" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <rect x="56" y="316" width="52" height="18" rx="9" fill="#da3633" opacity="0.15"/>
+  <text x="64" y="329" font-family="system-ui, sans-serif" font-size="9" font-weight="600" fill="#f85149">critical</text>
+  <text x="116" y="329" font-family="system-ui, sans-serif" font-size="10" fill="#484f58">CWE-89</text>
+  <text x="56" y="350" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#e6edf3">Improper Neutralization of SQL Commands</text>
+  <text x="56" y="368" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">Software constructs all or part of an SQL command using externally-</text>
+  <text x="56" y="382" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">influenced input without proper neutralization of special elements...</text>
+  <rect x="490" y="316" width="70" height="18" rx="9" fill="#1f6feb" opacity="0.1"/>
+  <text x="500" y="329" font-family="JetBrains Mono, monospace" font-size="9" fill="#58a6ff">0.891</text>
+
+  <!-- Result 3 -->
+  <rect x="40" y="404" width="540" height="92" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <rect x="56" y="416" width="40" height="18" rx="9" fill="#d29922" opacity="0.15"/>
+  <text x="64" y="429" font-family="system-ui, sans-serif" font-size="9" font-weight="600" fill="#d29922">high</text>
+  <text x="104" y="429" font-family="system-ui, sans-serif" font-size="10" fill="#484f58">OWASP A03:2021</text>
+  <text x="56" y="450" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#e6edf3">Injection (OWASP Top 10)</text>
+  <text x="56" y="468" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">Injection flaws such as SQL, NoSQL, OS, and LDAP injection occur when</text>
+  <text x="56" y="482" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">untrusted data is sent to an interpreter as part of a command or query.</text>
+  <rect x="490" y="416" width="70" height="18" rx="9" fill="#1f6feb" opacity="0.1"/>
+  <text x="500" y="429" font-family="JetBrains Mono, monospace" font-size="9" fill="#58a6ff">0.847</text>
+
+  <!-- Right panel: Knowledge base status -->
+  <rect x="596" y="204" width="340" height="188" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="616" y="232" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#e6edf3">Knowledge Base</text>
+
+  <text x="616" y="260" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">Documents</text>
+  <text x="860" y="260" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="#e6edf3" text-anchor="end">2,847</text>
+
+  <text x="616" y="284" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">With embeddings</text>
+  <text x="860" y="284" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="#3fb950" text-anchor="end">2,847 (100%)</text>
+
+  <text x="616" y="308" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">Sources</text>
+  <text x="860" y="308" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="#e6edf3" text-anchor="end">NVD, CWE, OWASP</text>
+
+  <text x="616" y="332" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">DB size</text>
+  <text x="860" y="332" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="#e6edf3" text-anchor="end">48 MB</text>
+
+  <text x="616" y="356" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">Last updated</text>
+  <text x="860" y="356" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="#e6edf3" text-anchor="end">2026-02-07</text>
+
+  <line x1="616" y1="370" x2="916" y2="370" stroke="#30363d" stroke-width="0.5"/>
+  <text x="616" y="386" font-family="system-ui, sans-serif" font-size="10" fill="#3fb950">All quality checks passing</text>
+
+  <!-- Right panel: MCP tools -->
+  <rect x="596" y="404" width="340" height="92" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="616" y="430" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#e6edf3">MCP Tools</text>
+
+  <rect x="616" y="442" width="120" height="20" rx="4" fill="#a371f7" opacity="0.1"/>
+  <text x="626" y="456" font-family="JetBrains Mono, monospace" font-size="9" fill="#a371f7">grimoire_search</text>
+
+  <rect x="744" y="442" width="140" height="20" rx="4" fill="#a371f7" opacity="0.1"/>
+  <text x="754" y="456" font-family="JetBrains Mono, monospace" font-size="9" fill="#a371f7">grimoire_index_status</text>
+
+  <rect x="616" y="468" width="120" height="20" rx="4" fill="#a371f7" opacity="0.1"/>
+  <text x="626" y="482" font-family="JetBrains Mono, monospace" font-size="9" fill="#a371f7">grimoire_quality</text>
+
+  <!-- Bottom bar -->
+  <rect x="40" y="510" width="896" height="84" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="60" y="534" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#e6edf3">How it works</text>
+  <text x="60" y="556" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">Your LLM agent calls grimoire_search via MCP. Grimoire runs FTS5 keyword search (BM25) and cosine</text>
+  <text x="60" y="574" font-family="system-ui, sans-serif" font-size="11" fill="#8b949e">similarity against embeddings, fuses scores (40/60 split), and returns ranked results. One SQLite file. Zero cloud.</text>
+</svg>
