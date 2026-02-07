@@ -1,10 +1,18 @@
-# Grimoire
-
-**Your LLM re-reads the same reference docs every conversation. Grimoire indexes them once.**
+<div align="center">
+  <img src="logo.svg" width="96" height="96" alt="Grimoire logo" />
+  <h1>Grimoire</h1>
+  <p><strong>Your LLM re-reads the same reference docs every conversation. Grimoire indexes them once.</strong></p>
+  <p>
+    <a href="https://tannner.com">tannner.com</a> ·
+    <a href="https://github.com/tannernicol/grimoire">GitHub</a>
+  </p>
 
 [![CI](https://github.com/tannernicol/grimoire/actions/workflows/ci.yml/badge.svg)](https://github.com/tannernicol/grimoire/actions)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+</div>
+
+---
 
 Grimoire is a hybrid search engine for security reference material — NIST frameworks, CWE catalogs, CVE feeds, audit findings, internal standards — backed by SQLite FTS5 and semantic embeddings. It exposes everything over [MCP](https://modelcontextprotocol.io/) so your LLM agent gets instant retrieval instead of a 50-page context dump.
 
