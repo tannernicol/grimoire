@@ -262,6 +262,10 @@ pip install -e ".[dev]"
 pytest
 ```
 
+## Author
+
+**Tanner Nicol** — [tannner.com](https://tannner.com) · [GitHub](https://github.com/tannernicol) · [LinkedIn](https://linkedin.com/in/tanner-nicol-60b21126)
+
 ## License
 
 MIT
