@@ -7,26 +7,31 @@
     <a href="https://github.com/tannernicol/grimoire">GitHub</a>
   </p>
 
-[![CI](https://github.com/tannernicol/grimoire/actions/workflows/ci.yml/badge.svg)](https://github.com/tannernicol/grimoire/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![CI](https://github.com/tannernicol/grimoire/actions/workflows/ci.yml/badge.svg)](https://github.com/tannernicol/grimoire/actions/workflows/ci.yml)
+[![Hygiene](https://github.com/tannernicol/grimoire/actions/workflows/hygiene.yml/badge.svg)](https://github.com/tannernicol/grimoire/actions/workflows/hygiene.yml)
+[![Security](https://github.com/tannernicol/grimoire/actions/workflows/security.yml/badge.svg)](https://github.com/tannernicol/grimoire/actions/workflows/security.yml)
+[![SBOM](https://github.com/tannernicol/grimoire/actions/workflows/sbom.yml/badge.svg)](https://github.com/tannernicol/grimoire/actions/workflows/sbom.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 </div>
 
 ---
 
 <p align="center">
-  <img src="docs/dashboard.svg" alt="Grimoire search dashboard" width="700" />
+  <img src="docs/demo.png" alt="Grimoire demo" width="700" />
 </p>
 
-## The Problem
+Grimoire is a hybrid search engine for security reference material — NIST frameworks, CWE catalogs, CVE feeds, audit findings, internal standards — backed by SQLite FTS5 and semantic embeddings. It exposes everything over [MCP](https://modelcontextprotocol.io/) so your LLM agent gets instant retrieval instead of a 50-page context dump.
 
-Your LLM agent needs to reference CWE-89 during a code review. Without Grimoire, it either hallucinates the details, or you paste 50 pages of NIST docs into the context window and hope it finds the right paragraph. Every conversation. Every time.
+Keyword search for exact matches. Semantic search for "what's related." Both in one query.
 
-## The Solution
+## At a Glance
 
-Grimoire indexes security reference material once — CVEs, CWEs, OWASP, audit findings, your internal standards — into a single SQLite file with both FTS5 keyword search and semantic embeddings. Your LLM agent searches it mid-conversation via MCP. Exact matches when you need "CWE-89". Conceptual recall when you need "authentication bypass techniques". Both in one query.
-
-**One SQLite file. Zero cloud. Instant retrieval via MCP.**
+- Hybrid retrieval in one local SQLite file (FTS5 + semantic embeddings)
+- MCP-ready for in-conversation agent lookup
+- Built-in ingestors for CVE/CWE/Markdown/CSV sources
+- Local-first by default (no external vector DB required)
+- Redaction guardrails for safe public docs and examples
 
 ```
                           +------------------+
@@ -260,11 +265,30 @@ quality:
 ```bash
 pip install -e ".[dev]"
 pytest
+python scripts/redact.py --self-check
 ```
 
-## Author
+## Engineering Quality
 
-**Tanner Nicol** — [tannner.com](https://tannner.com) · [GitHub](https://github.com/tannernicol) · [LinkedIn](https://linkedin.com/in/tanner-nicol-60b21126)
+- CI matrix on Python 3.10/3.11/3.12
+- Pre-commit + redaction checks to block accidental leaks
+- CodeQL + weekly dependency audit automation
+- SBOM artifacts on PRs and releases
+- Dependabot updates for Python deps and GitHub Actions
+
+## Public Hygiene
+
+Before publishing docs, examples, or reports, run:
+
+```bash
+python scripts/redact.py --self-check
+```
+
+Reference:
+
+- `docs/public-scope.md`
+- `docs/redaction-policy.md`
+- `scripts/configure_branch_protection.sh tannernicol/grimoire master`
 
 ## License
 

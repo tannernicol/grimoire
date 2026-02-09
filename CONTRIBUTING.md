@@ -1,18 +1,26 @@
 # Contributing
 
-Contributions are welcome. If you find a bug or have an idea, open an issue first so we can discuss.
+Thanks for contributing to Grimoire.
 
-## How to contribute
+## Workflow
 
-1. Fork the repo
-2. Create a feature branch (`git checkout -b my-feature`)
-3. Make your changes
-4. Run tests if they exist (`pytest`)
-5. Open a pull request
+1. Fork the repository and create a branch for one logical change.
+2. Add or update tests and docs alongside code changes.
+3. Run local validation before opening a pull request.
+4. Open a PR with clear problem statement and validation notes.
 
-## Guidelines
+## Local Validation
 
-- Keep changes focused — one PR per feature or fix
-- Follow existing code style
-- Add tests for new functionality when possible
+```bash
+pip install -e ".[dev]"
+pytest
+pre-commit run --all-files
+python scripts/redact.py --self-check
+```
 
+## Pull Request Expectations
+
+- Keep PRs focused and easy to review.
+- Include reproducible examples for new ingest/search behavior.
+- Avoid breaking CLI and MCP contracts without docs updates.
+- Never include secrets, internal hostnames, private IPs, or customer data.

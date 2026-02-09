@@ -2,16 +2,37 @@
 
 ## Reporting a Vulnerability
 
-If you find a security issue, please report it privately.
+Please report vulnerabilities privately via GitHub Security Advisories:
 
-- Open a [GitHub Security Advisory](https://github.com/tannernicol/grimoire/security/advisories/new) or file a private issue.
-- Please include clear reproduction steps and affected components.
+- https://github.com/tannernicol/grimoire/security/advisories/new
+
+Please include:
+
+- Affected version or commit
+- Reproduction steps
+- Impact assessment
+- Suggested remediation (if known)
 
 ## Scope
 
-- Only issues in this repository and its direct outputs.
-- Excludes external services (NVD, MITRE) unless explicitly documented.
+In scope:
 
-## Responsible Disclosure
+- Repository source code and scripts
+- CLI and MCP integration paths
+- Default configs and documented setup
 
-We will acknowledge receipt within 7 days and provide a remediation timeline after triage.
+Out of scope:
+
+- Third-party data source availability issues
+- Misconfigurations in downstream/private deployments
+- Vulnerabilities in external dependencies unless exploited through this codebase
+
+## Disclosure Timeline
+
+- Acknowledgement target: within 7 days
+- Triage target: within 14 days
+- Remediation timeline: shared after triage based on severity
+
+## Public Hygiene
+
+Do not publish real credentials, internal hostnames, private IPs, or personal data in issues, PRs, docs, examples, or reports.
