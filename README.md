@@ -37,6 +37,13 @@ Keyword search for exact matches. Semantic search for "what's related." Both in 
 - Local-first by default (no external vector DB required)
 - Redaction guardrails for safe public docs and examples
 
+## Engineering Signal (Employer Skim)
+
+- Builds practical retrieval infrastructure (FTS5 + semantic fusion)
+- Ships MCP integration for real agent workflows
+- Maintains CI, security automation, SBOM, and redaction guardrails
+- Includes threat model, hardening checklist, and reproducible demos
+
 ## When to Use
 
 - Security teams building local retrieval for agent workflows
