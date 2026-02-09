@@ -21,6 +21,10 @@
   <img src="docs/demo.png" alt="Grimoire demo" width="700" />
 </p>
 
+<p align="center">
+  <img src="docs/demo.gif" alt="Grimoire synthetic 60-second demo" width="700" />
+</p>
+
 Grimoire is a hybrid search engine for security reference material — NIST frameworks, CWE catalogs, CVE feeds, audit findings, internal standards — backed by SQLite FTS5 and semantic embeddings. It exposes everything over [MCP](https://modelcontextprotocol.io/) so your LLM agent gets instant retrieval instead of a 50-page context dump.
 
 Keyword search for exact matches. Semantic search for "what's related." Both in one query.
@@ -32,6 +36,18 @@ Keyword search for exact matches. Semantic search for "what's related." Both in 
 - Built-in ingestors for CVE/CWE/Markdown/CSV sources
 - Local-first by default (no external vector DB required)
 - Redaction guardrails for safe public docs and examples
+
+## When to Use
+
+- Security teams building local retrieval for agent workflows
+- Engineers needing exact keyword plus conceptual search together
+- Environments that require private and reproducible data handling
+
+## When Not to Use
+
+- Tiny datasets where plain grep or direct file lookup is enough
+- Strictly cloud-managed search platforms with no local runtime
+- Use cases requiring write-heavy distributed indexing
 
 ```
                           +------------------+
@@ -268,6 +284,18 @@ pytest
 python scripts/redact.py --self-check
 ```
 
+## Synthetic Benchmarks
+
+```bash
+python scripts/benchmark_synthetic.py --format markdown
+python scripts/benchmark_synthetic.py --format json --output docs/benchmarks.synthetic.json
+```
+
+Reference:
+
+- `docs/benchmarks.md`
+- `docs/benchmarks.synthetic.md`
+
 ## Engineering Quality
 
 - CI matrix on Python 3.10/3.11/3.12
@@ -275,6 +303,16 @@ python scripts/redact.py --self-check
 - CodeQL + weekly dependency audit automation
 - SBOM artifacts on PRs and releases
 - Dependabot updates for Python deps and GitHub Actions
+
+## Documentation
+
+- [Sanitized Workflow Example](examples/sanitized_workflow.md)
+- [Threat Model](docs/threat-model.md)
+- [Production Hardening Checklist](docs/hardening-checklist.md)
+- [Release Policy](docs/release-policy.md)
+- [Changelog](CHANGELOG.md)
+- [Good First Issues](docs/good-first-issues.md)
+- [Cross-Repo Stack Demo](docs/stack-demo.md)
 
 ## Public Hygiene
 
@@ -289,6 +327,10 @@ Reference:
 - `docs/public-scope.md`
 - `docs/redaction-policy.md`
 - `scripts/configure_branch_protection.sh tannernicol/grimoire master`
+
+## Related Repos
+
+- [Open Source Portfolio Index](docs/portfolio-index.md)
 
 ## License
 

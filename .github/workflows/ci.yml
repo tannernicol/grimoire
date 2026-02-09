@@ -42,5 +42,9 @@ jobs:
           python examples/search_demo.py --health
       - name: Validate fetch script
         run: python scripts/fetch_sources.py owasp --db /tmp/test_grimoire.db
+      - name: Generate synthetic benchmarks
+        run: |
+          python scripts/benchmark_synthetic.py --format markdown --output /tmp/bench.md
+          python scripts/benchmark_synthetic.py --format json --output /tmp/bench.json
       - name: Redaction check
         run: python scripts/redact.py --self-check

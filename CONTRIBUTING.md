@@ -24,3 +24,8 @@ python scripts/redact.py --self-check
 - Include reproducible examples for new ingest/search behavior.
 - Avoid breaking CLI and MCP contracts without docs updates.
 - Never include secrets, internal hostnames, private IPs, or customer data.
+
+## Starter Tasks
+
+- See docs/good-first-issues.md for contributor-friendly tasks with acceptance criteria.
+- Follow docs/release-policy.md when preparing release-impacting changes.

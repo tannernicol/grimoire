@@ -1,0 +1,27 @@
+{
+  "project": "Grimoire",
+  "synthetic": true,
+  "metrics": [
+    {
+      "scenario": "fts5 keyword query",
+      "p50_ms": 14,
+      "p95_ms": 33,
+      "cpu_pct": 9,
+      "mem_mb": 120
+    },
+    {
+      "scenario": "hybrid retrieval",
+      "p50_ms": 28,
+      "p95_ms": 61,
+      "cpu_pct": 16,
+      "mem_mb": 170
+    },
+    {
+      "scenario": "mcp query roundtrip",
+      "p50_ms": 39,
+      "p95_ms": 84,
+      "cpu_pct": 20,
+      "mem_mb": 195
+    }
+  ]
+}
