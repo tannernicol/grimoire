@@ -1,31 +1,21 @@
 # Contributing
 
-Thanks for contributing to Grimoire.
+Thanks for your interest in Grimoire.
 
-## Workflow
-
-1. Fork the repository and create a branch for one logical change.
-2. Add or update tests and docs alongside code changes.
-3. Run local validation before opening a pull request.
-4. Open a PR with clear problem statement and validation notes.
-
-## Local Validation
+## Getting Started
 
 ```bash
 pip install -e ".[dev]"
-pytest
-pre-commit run --all-files
-python scripts/redact.py --self-check
+python -m pytest tests/ -v
 ```
 
-## Pull Request Expectations
+## Pull Requests
 
-- Keep PRs focused and easy to review.
-- Include reproducible examples for new ingest/search behavior.
-- Avoid breaking CLI and MCP contracts without docs updates.
-- Never include secrets, internal hostnames, private IPs, or customer data.
+1. Fork the repo and create a branch for one logical change.
+2. Include tests for new ingest or search behavior.
+3. Run `pytest` before opening a PR.
+4. Never include secrets, internal hostnames, or private data.
 
-## Starter Tasks
+## Security
 
-- See docs/good-first-issues.md for contributor-friendly tasks with acceptance criteria.
-- Follow docs/release-policy.md when preparing release-impacting changes.
+See [SECURITY.md](SECURITY.md) for reporting vulnerabilities.

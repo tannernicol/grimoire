@@ -7,54 +7,26 @@
     <a href="https://github.com/tannernicol/grimoire">GitHub</a>
   </p>
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![CI](https://github.com/tannernicol/grimoire/actions/workflows/ci.yml/badge.svg)](https://github.com/tannernicol/grimoire/actions/workflows/ci.yml)
-[![Hygiene](https://github.com/tannernicol/grimoire/actions/workflows/hygiene.yml/badge.svg)](https://github.com/tannernicol/grimoire/actions/workflows/hygiene.yml)
-[![Security](https://github.com/tannernicol/grimoire/actions/workflows/security.yml/badge.svg)](https://github.com/tannernicol/grimoire/actions/workflows/security.yml)
-[![SBOM](https://github.com/tannernicol/grimoire/actions/workflows/sbom.yml/badge.svg)](https://github.com/tannernicol/grimoire/actions/workflows/sbom.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 </div>
 
 ---
 
 <p align="center">
-  <img src="docs/demo.png" alt="Grimoire demo" width="700" />
+  <img src="docs/demo.gif" alt="Grimoire search demo" width="700" />
 </p>
 
-<p align="center">
-  <img src="docs/demo.gif" alt="Grimoire synthetic 60-second demo" width="700" />
-</p>
+## The Problem
 
-Grimoire is a hybrid search engine for security reference material — NIST frameworks, CWE catalogs, CVE feeds, audit findings, internal standards — backed by SQLite FTS5 and semantic embeddings. It exposes everything over [MCP](https://modelcontextprotocol.io/) so your LLM agent gets instant retrieval instead of a 50-page context dump.
+Your LLM agent needs to reference CWE-89 during a code review. Without Grimoire, it either hallucinates the details, or you paste 50 pages of NIST docs into the context window and hope it finds the right paragraph. Every conversation. Every time.
 
-Keyword search for exact matches. Semantic search for "what's related." Both in one query.
+## The Solution
 
-## At a Glance
+Grimoire indexes security reference material once — CVEs, CWEs, OWASP, audit findings, your internal standards — into a single SQLite file with both FTS5 keyword search and semantic embeddings. Your LLM agent searches it mid-conversation via MCP. Exact matches when you need "CWE-89". Conceptual recall when you need "authentication bypass techniques". Both in one query.
 
-- Hybrid retrieval in one local SQLite file (FTS5 + semantic embeddings)
-- MCP-ready for in-conversation agent lookup
-- Built-in ingestors for CVE/CWE/Markdown/CSV sources
-- Local-first by default (no external vector DB required)
-- Redaction guardrails for safe public docs and examples
-
-## Engineering Signal (Employer Skim)
-
-- Builds practical retrieval infrastructure (FTS5 + semantic fusion)
-- Ships MCP integration for real agent workflows
-- Maintains CI, security automation, SBOM, and redaction guardrails
-- Includes threat model, hardening checklist, and reproducible demos
-
-## When to Use
-
-- Security teams building local retrieval for agent workflows
-- Engineers needing exact keyword plus conceptual search together
-- Environments that require private and reproducible data handling
-
-## When Not to Use
-
-- Tiny datasets where plain grep or direct file lookup is enough
-- Strictly cloud-managed search platforms with no local runtime
-- Use cases requiring write-heavy distributed indexing
+**One SQLite file. Zero cloud. Instant retrieval via MCP.**
 
 ```
                           +------------------+
@@ -288,56 +260,63 @@ quality:
 ```bash
 pip install -e ".[dev]"
 pytest
-python scripts/redact.py --self-check
 ```
 
-## Synthetic Benchmarks
+## Threat Model
 
-```bash
-python scripts/benchmark_synthetic.py --format markdown
-python scripts/benchmark_synthetic.py --format json --output docs/benchmarks.synthetic.json
+**In scope — what Grimoire defends against:**
+
+- **Knowledge staleness** — auto-fetch from NVD, MITRE CWE, and OWASP keeps the index current; agents reference live CVE data, not training-cutoff snapshots
+- **Retrieval hallucination** — hybrid search (BM25 + semantic) returns sourced, scored documents with provenance metadata; the agent cites indexed material, not confabulated details
+- **Exact-match failure** — FTS5 keyword search guarantees that queries for specific identifiers (CVE-2024-1234, CWE-89) return exact matches, unlike pure vector search which can miss or rank them poorly
+- **Data exfiltration via cloud RAG** — the entire pipeline runs offline against a local SQLite file; no document content is sent to external embedding APIs or vector databases
+
+**Out of scope — what Grimoire intentionally does not defend against:**
+
+- **Poisoned source data** — if upstream NVD or CWE feeds contain inaccurate information, Grimoire indexes it as-is; there is no cross-validation of ingested content
+- **Embedding model compromise** — semantic search trusts the local Ollama embedding model; adversarial inputs crafted to manipulate `nomic-embed-text` could influence ranking
+- **Access control on the knowledge base** — the SQLite file and MCP server have no authentication; any process with filesystem or MCP access can query the full index
+- **Agent misuse of results** — Grimoire returns relevant documents, but the consuming LLM may still misinterpret, selectively quote, or ignore them
+
+## Architecture
+
+```mermaid
+flowchart TB
+    subgraph Data Sources
+        NVD[NVD / CVE Feeds]
+        CWE[MITRE CWE Catalog]
+        OWASP[OWASP Top 10]
+        Custom[Markdown / CSV\nAudit Findings]
+    end
+
+    NVD --> Ingest
+    CWE --> Ingest
+    OWASP --> Ingest
+    Custom --> Ingest
+
+    subgraph Grimoire Core
+        Ingest[Ingestor Pipeline]
+        Ingest -->|documents| DB[(SQLite DB)]
+        DB -->|FTS5 index| FTS[BM25 Keyword Search]
+        DB -->|embedding vectors| Sem[Cosine Semantic Search]
+
+        Ollama[Local Ollama\nnomic-embed-text] -->|embeddings| DB
+
+        FTS --> Fusion[Score Fusion\n40% keyword + 60% semantic]
+        Sem --> Fusion
+        Fusion --> Results[Ranked Results\nwith provenance]
+    end
+
+    Results --> API[Python API\nGrimoire.search]
+    Results --> MCP[MCP Server\ngrimoire_search\ngrimoire_status\ngrimoire_quality]
+
+    MCP --> Agent([LLM Agent\ne.g. Claude Code])
+    API --> Scripts([Scripts / Pipelines])
 ```
 
-Reference:
+## Author
 
-- `docs/benchmarks.md`
-- `docs/benchmarks.synthetic.md`
-
-## Engineering Quality
-
-- CI matrix on Python 3.10/3.11/3.12
-- Pre-commit + redaction checks to block accidental leaks
-- CodeQL + weekly dependency audit automation
-- SBOM artifacts on PRs and releases
-- Dependabot updates for Python deps and GitHub Actions
-
-## Documentation
-
-- [Sanitized Workflow Example](examples/sanitized_workflow.md)
-- [Threat Model](docs/threat-model.md)
-- [Production Hardening Checklist](docs/hardening-checklist.md)
-- [Release Policy](docs/release-policy.md)
-- [Changelog](CHANGELOG.md)
-- [Good First Issues](docs/good-first-issues.md)
-- [Cross-Repo Stack Demo](docs/stack-demo.md)
-
-## Public Hygiene
-
-Before publishing docs, examples, or reports, run:
-
-```bash
-python scripts/redact.py --self-check
-```
-
-Reference:
-
-- `docs/public-scope.md`
-- `docs/redaction-policy.md`
-- `scripts/configure_branch_protection.sh tannernicol/grimoire master`
-
-## Related Repos
-
-- [Open Source Portfolio Index](docs/portfolio-index.md)
+**Tanner Nicol** — [tannner.com](https://tannner.com) · [GitHub](https://github.com/tannernicol) · [LinkedIn](https://linkedin.com/in/tanner-nicol-60b21126)
 
 ## License
 
