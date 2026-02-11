@@ -210,6 +210,7 @@ def ingest_owasp(g: Grimoire) -> int:
 
     print("[+] Ingesting OWASP Top 10 sample data...")
     ingestor = CVEIngestor()
+    ingestor.source_name = "owasp"
     count = ingestor.ingest_to_grimoire(g, sample_path)
     print(f"  Ingested {count} entries.")
     return count

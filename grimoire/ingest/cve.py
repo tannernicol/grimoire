@@ -121,7 +121,7 @@ class CVEIngestor(BaseIngestor):
             content += "\n\nReferences:\n" + "\n".join(f"- {r}" for r in refs[:10])
 
         return {
-            "source": "cve",
+            "source": self.source_name,
             "title": cve_id,
             "path": f"https://nvd.nist.gov/vuln/detail/{cve_id}",
             "content": content,
@@ -172,7 +172,7 @@ class CVEIngestor(BaseIngestor):
         content = f"{cve_id}\n\n{desc_text}"
 
         return {
-            "source": "cve",
+            "source": self.source_name,
             "title": cve_id,
             "path": f"https://nvd.nist.gov/vuln/detail/{cve_id}",
             "content": content,
@@ -212,7 +212,7 @@ class CVEIngestor(BaseIngestor):
                 content += f"\n\nMitigation: {mitigations}"
 
         return {
-            "source": "cve",
+            "source": self.source_name,
             "title": cve_id or None,
             "content": content,
             "severity": severity,
